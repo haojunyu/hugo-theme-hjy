@@ -1,0 +1,27 @@
+/* --- General --- */
+
+body {
+  /*font-family: 'Lora', 'Times New Roman', serif;*/
+  font-weight: 400;
+  font-stretch: normal;
+  font-size: 1em;
+  line-height: 1.8;
+  font-family:  'Segoe UI', 'Lora','Hiragino Sans GB', STHeiti, 'Microsoft Yahei', 'Microsoft Sans Serif', 'WenQuanYi Micro Hei', sans-serif;
+  position: relative;
+  background: #FdFdFd;
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+
+
+/* --- nav.html -- */
+.navbar-light .navbar-brand {
+  color: #333;
+  text-decoration: none;
+}
+
+.navbar-light .navbar-brand:hover{
+  color: #1abc9c;
+  transition: all 0.2s;
+}

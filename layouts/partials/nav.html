@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{{ "" | absLangURL }}">{{ $.Scratch.Get "Title" }}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="{{ i18n "toggleNavigation" }}">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+    {{ range .Site.Menus.main.ByWeight }}
+    {{ if .HasChildren }}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ .Name }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {{ range .Children }}
+          <a class='dropdown-item {{if not ( replace .URL " " "")}} disabled {{end}}' href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+        {{ end }}
+        </div>
+      </li>
+    {{ else }}
+      <li class="nav-item">
+        <a class='nav-link {{if not ( replace .URL " " "")}} disabled {{end}}'  title="{{ .Name }}" href="{{ .URL  | relLangURL }}">{{ .Name }}</a>
+      </li>
+    {{ end }}
+    {{ end }}
+    <!--
+    {{ if isset .Site.Params "gcse" }}
+      <li>
+        <a href="#modalSearch" data-toggle="modal" data-target="#modalSearch" style="outline: none;">
+          <span class="hidden-sm hidden-md hidden-lg">{{ i18n "gcseLabelShort" }}</span> <span id="searchGlyph" class="glyphicon glyphicon-search"></span>
+        </a>
+      </li>
+    {{ end }}
+    -->
+    </ul>
+    
+
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+
+<!-- Search Modal 
+{{ if isset .Site.Params "gcse" }}
+  <div id="modalSearch" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{ i18n "gcseLabelLong" . }}</h4>
+        </div>
+        <div class="modal-body">
+          <gcse:search></gcse:search>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ i18n "gcseClose" }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{{ end }}
+-->

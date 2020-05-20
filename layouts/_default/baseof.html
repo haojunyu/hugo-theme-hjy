@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html>
-    {{- partial "head.html" . -}}
-    <body>
-        {{- partial "header.html" . -}}
-        <div id="content">
-        {{- block "main" . }}{{- end }}
-        </div>
-        {{- partial "footer.html" . -}}
-    </body>
+<html lang="{{ .Lang }}" itemscope itemtype="http://schema.org/WebPage"> 
+  <head>
+    {{ partial "head.html" . }}   <!-- head 标签内容，多为js,css-->
+  </head>
+  <body>
+    {{  partial "nav.html" .  }}  <!-- nav 导航栏-->
+    {{ block "header" . }}
+      {{ partial "header.html" . }}
+    {{ end }}  <!-- header 头部-->
+
+    {{ block "main" . }}{{ end }}   <!-- 内容-->
+s
+    {{ block "footer" . }}
+      {{ partial "footer.html" . }}
+    {{ end }}  <!-- 页脚-->
+  </body>
 </html>
