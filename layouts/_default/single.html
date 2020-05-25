@@ -2,9 +2,14 @@
 <div class="container" role="main">
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      {{with .Site.Params.debug }}
+      <p>single-scratch: {{ printf "%#v" $.Scratch }}</p>
+      {{end}}
+
       <article role="main" class="blog-post">
           <p>{{.Type}}  {{.Section}}</p>
         {{ .Content }}
+        
 
         {{ if .Params.tags }}
           <div class="blog-tags">

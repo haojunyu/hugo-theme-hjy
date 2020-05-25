@@ -1,17 +1,49 @@
-<!--- partial "load-photoswipe-theme.html" . -->
+
+
+
 
 {{ if .IsHome }}
   {{ if .Site.Params.homeTitle }}{{ $.Scratch.Set "title" .Site.Params.homeTitle }}{{ else }}{{ $.Scratch.Set "title" .Site.Title }}{{ end }}
-  {{ if .Site.Params.subtitle }}{{ $.Scratch.Set "subtitle" .Site.Params.subtitle }}{{ end }}
   {{ if .Site.Params.bigimg }}{{ $.Scratch.Set "bigimg" .Site.Params.bigimg }}{{ end }}
 {{ else }}
   {{ $.Scratch.Set "title" .Title }}
-  {{ if .Params.subtitle }}{{ $.Scratch.Set "subtitle" .Params.subtitle }}{{ end }}
   {{ if .Params.bigimg }}{{ $.Scratch.Set "bigimg" .Params.bigimg }}{{ end }}
 {{ end }}
+
 {{ $bigimg := $.Scratch.Get "bigimg" }}
 {{ $title := $.Scratch.Get "title" }}
 {{ $subtitle := $.Scratch.Get "subtitle" }}
+
+{{ if $bigimg }}
+  <div class="contianer">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        {{range $i, $img := $bigimg}}
+        <li data-target="#carouselExampleCaptions" data-slide-to="{{$i}}" {{if eq $i 0}}class="active" {{end}}></li>
+        {{end}}
+      </ol>
+      <div class="carousel-inner">
+        {{range $i, $img := $bigimg}}
+        <div class="carousel-item {{if eq $i 0}} active {{end}}">
+          <img src="{{ $img.src | absURL }}" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            {{ if .IsHome }}
+              <!-- 介绍站点信息  partials "siteinfo.html" . -->
+              <h5>{{$.Scratch.Get "title"}}</h5>
+              <p>{{$img.desc}}</p>
+            {{ else }}
+              <h5>{{$.Scratch.Get "title"}}</h5>
+              <p>{{$img.desc}}</p>
+            {{end}}
+            
+          </div>
+        </div>
+        {{end}}
+      </div>
+    </div>
+  </div>
+{{end}}
+<!--
 
 {{ if or $bigimg $title }}
   {{ if $bigimg }}
@@ -23,7 +55,8 @@
           data-img-src-{{add $i 1}}="{{$img.src}}" 
          {{end}}
          {{ if $img.desc}}data-img-desc-{{add $i 1}}="{{$img.desc}}"{{end}}
-      {{end}}></div>
+      {{end}}>
+    </div>
   {{ end }}
 
   <header class="header-section {{ if $bigimg }}has-img{{ end }}">
@@ -85,3 +118,18 @@
 {{ else }}
   <div class="intro-header"></div>
 {{ end }}
+-->
+
+
+{{/*  
+  <!--head最上面放置图标，并往上偏移自身一半-->
+  {{ if isset .Site.Params "logo" }}
+  <div class="avatar-container">
+    <div class="avatar-img-border">
+      <a title="{{ .Site.Title }}" href="{{ "" | absLangURL }}">
+        <img class="avatar-img" src="{{ .Site.Params.logo | absURL }}" alt="{{ .Site.Title }}" />
+      </a>
+
+    </div>
+  </div>
+{{ end }}  */}}

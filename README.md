@@ -6,6 +6,11 @@ hugo主题
 
 
 
+# Scratch存储的值
+* Title               head.html
+* Description         head.html
+* most_used （分类页）
+
 * 20200519
     * 完成head.html 并且添加bootstrap4.3.1样式
 * 20200521

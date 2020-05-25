@@ -7,7 +7,14 @@
             {{.}}
           </div>
         {{ end }}
-        <p>{{ printf "%#v" $.Site }}</p>
+
+        {{with .Site.Params.debug }}
+        <p>{{ printf "$.Site: %#v" $.Site }}</p>
+        <p>{{ printf "site.params: %#v\n" $.Site.Params}}</p>
+        <p>{{ printf "params: %#v\n" $.Params }}</p>
+        <p>index-scratch: {{ printf "%#v" $.Scratch }}</p>
+        {{end}}
+        
         <div class="posts-list">
           {{ $pag := .Paginate (where site.RegularPages "Type" "in" site.Params.mainSections) 4}}
           {{ range $pag.Pages }}

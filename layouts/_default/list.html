@@ -7,6 +7,11 @@
             {{.}}
           </div>
         {{ end }}
+        {{with .Site.Params.debug }}
+        <p>list-scratch: {{ printf "%#v" $.Scratch }}</p>
+        {{end}}
+
+        
         <div class="posts-list">
           {{ range .Paginator.Pages }}
           <p>{{.Type}}  {{.Section}}</p>
