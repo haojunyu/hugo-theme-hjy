@@ -13,6 +13,10 @@
   translation: ", "
 - id: readMore
   translation: "阅读全文"
+- id: firstPosts
+  translation: "首页"
+- id: lastPosts
+  translation: "尾页"
 - id: olderPosts
   translation: "下一页"
 - id: newerPosts
@@ -33,7 +37,7 @@
 
 # Footer
 - id: poweredBy # Accepts HTML
-  translation: '由 <a href="https://gohugo.io">Hugo v{{ .Site.Hugo.Version }}</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> 移植自 <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>'
+  translation: '由 <a href="https://gohugo.io">Hugo v{{ .Site.Hugo.Version }}</a> 强力驱动 &nbsp;&bull;&nbsp; 主题 <a href="https://github.com/haojunyu/hugo-theme-hjy"> yixuanju </a> 参考 <a href="https://github.com/halogenica/beautifulhugo">beautifulhugo</a> 和 <a href="https://getbootstrap.com/">bootstrap4</a>'
 
 # Navigation
 - id: toggleNavigation

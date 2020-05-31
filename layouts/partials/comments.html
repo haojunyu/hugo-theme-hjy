@@ -1,0 +1,20 @@
+{{- $.Scratch.Set "comments" ( .Params.comments | default .Site.Params.comments ) }}
+
+
+{{ if and .IsPage (ne ($.Scratch.Get "comments") false) -}}
+    {{with .Site.Params.debug }}
+    <p>{{ printf "$.Site: %#v" $.Site.Params }}</p>
+    {{end}}
+  <!-- utterances -->
+  {{- if .Site.Params.utterances.enable}}
+    <script src="https://utteranc.es/client.js"
+            repo="{{ .Site.Params.utterances.repo }}"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+  {{- end }}
+
+
+{{- end }}

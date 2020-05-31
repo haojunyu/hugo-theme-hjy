@@ -1,39 +1,51 @@
 <article class="post-preview">
-    <a href="{{ .Permalink }}">
-        <h2 class="post-title">{{ .Title }}</h2>
-        {{ if .Params.subtitle }}
-        <h3 class="post-subtitle">
-            {{ .Params.subtitle }}
-        </h3>
-        {{ end }}
-        {{ if .Params.image }}
-        <img src="{{ .Params.image }}" alt="{{ .Title }}" class="img-title" />
-        {{ end }}
-        {{ if .Params.video }}
-        <video loop autoplay muted playsinline class="img-title">
-            <source src="{{ .Params.video }}">
-        </video>
-        {{ end }}
-    </a>
+    <header class="post-preview-header">
+        <a href="{{ .Permalink }}">
+            <h3 class="post-title">{{ .Title }}</h3>
+            {{ if .Params.image }}
+            <img src="{{ .Params.image }}" alt="{{ .Title }}" class="img-title" />
+            {{ end }}
+            {{ if .Params.video }}
+            <video loop autoplay muted playsinline class="img-title">
+                <source src="{{ .Params.video }}">
+            </video>
+            {{ end }}
+        </a>
+        <div class="post-meta">
+            {{ partial "post_meta.html" . }}
+        </div>
+    </header>
 
-    <p class="post-meta">
-        {{ partial "post_meta.html" . }}
-    </p>
-    <div class="post-entry">
+    <div class="post-preview-content">
+        <p> {{ .Summary }} </p>
         {{ if .Truncated }}
-        {{ .Summary }}
         <a href="{{ .Permalink }}" class="post-read-more">[{{ i18n "readMore" }}]</a>
-        {{ else }}
-        {{ .Content }}
         {{ end }}
+        
+
     </div>
 
-    {{ if .Params.tags }}
-    <div class="blog-tags">
-        {{ range .Params.tags }}
-        <a href="{{ $.Site.LanguagePrefix | absURL }}/tags/{{ . | urlize }}/">{{ . }}</a>&nbsp;
+    <div class="post-preview-footer">
+        {{ if .Params.categories }}
+        <div class="d-inline-block">
+            {{ range .Params.categories }}
+            <a href="{{ "categories" | relLangURL }}/{{ . | urlize }}/">
+                <span class="cate-label">{{ . }}</span>
+            </a>&nbsp;
+            {{ end }}
+        </div>
+        &nbsp;|&nbsp;
+        {{ end }}
+        {{ if .Params.tags }}
+        <i class="fas fa-tags"></i>&nbsp;
+        <div class="d-inline-block">
+            {{ range .Params.tags }}
+            <a href="{{ "tags" | relLangURL }}/{{ . | urlize }}/">
+                <span class="tag-label">{{ . }}</span>
+            </a>&nbsp;
+            {{ end }}
+        </div>
         {{ end }}
     </div>
-    {{ end }}
 
 </article>

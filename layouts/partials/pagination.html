@@ -1,0 +1,61 @@
+{{ $paginator := .Paginator }}
+
+
+{{if gt $paginator.TotalPages 1 }}
+<nav aria-label="Page navigation example" class="paginator">
+    <ul class="pagination justify-content-center">
+        <!-- First page. -->
+        {{ with $paginator.First }}
+        <li class="page-item">
+            <a class="page-link"  href="{{ $paginator.First.URL }}">{{ i18n "firstPosts" }} </a>
+        </li>
+        {{ end }}
+
+        <!-- Previous page. -->
+        <li class="page-item{{ if not $paginator.HasPrev }} disabled {{end}}">
+            <a class="page-link"  {{ if $paginator.HasPrev }}href="{{ $paginator.Prev.URL }}"{{ end }} >{{ i18n "newerPosts" }} </a>
+        </li>
+
+        <!-- ellipsed和shouldEllipse决定忽略多个，只显示第一个省略号 -->
+        {{ $ellipsed := false }}
+        {{ $shouldEllipse := false }}
+        <!-- 左右两端显示的页数 -->
+        {{ $endLen := 1 }}
+        <!-- 当前页左右显示的页数 -->
+        {{ $midLen := 2 }}
+        
+        {{ range $paginator.Pagers }}
+        {{ $right := sub .TotalPages $endLen }}
+        {{ $showNumber := or (le .PageNumber $endLen) (gt .PageNumber $right) }}
+        {{ $showNumber := or $showNumber (le .TotalPages 5) }}
+        {{ $showNumber := or $showNumber (and (gt .PageNumber (sub $paginator.PageNumber $midLen)) (lt .PageNumber (add $paginator.PageNumber $midLen)))  }}
+        {{ if $showNumber }}
+            {{ $ellipsed = false }}
+            {{ $shouldEllipse = false }}
+        {{ else }}
+            {{ $shouldEllipse = not $ellipsed }}
+            {{ $ellipsed = true }}
+        {{ end }}
+        {{ if $showNumber }}
+        <li class="page-item{{ if eq . $paginator }} active{{ end }}"><a class="page-link" href="{{ .URL }}">{{ .PageNumber }}</a></li>
+        {{ else if $shouldEllipse }}
+        <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+        {{ end }}
+        {{ end }}
+    
+
+        <!-- Next page. -->
+        <li class="page-item{{ if not $paginator.HasNext }} disabled {{end}}">
+            <a class="page-link"  {{ if $paginator.HasNext }}href="{{ $paginator.Next.URL }}"{{ end }} >{{ i18n "olderPosts" }} </a>
+        </li>
+
+        <!-- Last page. -->
+        {{ with $paginator.Last }}
+        <li class="page-item">
+            <a class="page-link"  href="{{ $paginator.Last.URL }}/">{{ i18n "lastPosts" }} </a>
+        </li>
+        {{ end }}
+
+    </ul>
+</nav>
+{{end}}

@@ -1,17 +1,16 @@
 {{ if eq .Type "page" }}
-<p>footer: {{.Type}}  sdfs{{.Section}}</p>
 {{ partial "page_meta.html" . }}
-sdfasdfasdf
+<p>footer: {{ .Type }}  sdfs{{ .Section }}</p>
 {{ end }}
 <footer>
-     <p>footer: {{.Type}}  sdfs{{.Section}}</p>
 <div class="container">
-<div class="row">
-  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <ul class="list-inline text-center footer-links">
-      {{ range .Site.Data.beautifulhugo.social.social_icons }}
+<div class="row justify-content-center">
+  
+  <div class="col-lg-8 col-md-10 text-center">
+    <ul>
+      {{ range .Site.Data.social.social_icons }}
         {{- if isset $.Site.Author .id }}
-          <li>
+          <li class="d-inline">
             <a href="{{ printf .url (index $.Site.Author .id) }}" title="{{ .title }}">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
@@ -22,7 +21,7 @@ sdfasdfasdf
         {{- end -}}
       {{ end }}
       {{ if .Site.Params.rss }}
-      <li>
+      <li class="d-inline">
         <a href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}" title="RSS">
           <span class="fa-stack fa-lg">
             <i class="fas fa-circle fa-stack-2x"></i>
@@ -32,7 +31,7 @@ sdfasdfasdf
       </li>
       {{ end }}
     </ul>
-    <p class="credits copyright text-muted">
+    <p>
       {{ if .Site.Author.name }}
         {{ if .Site.Author.website }}
           <a href="{{ .Site.Author.website }}">{{ .Site.Author.name }}</a>
@@ -54,7 +53,7 @@ sdfasdfasdf
       {{ end }}
     </p>
     <!-- Please don't remove this, keep my open source work credited :) -->
-    <p class="credits theme-by text-muted">
+    <p>
       {{ i18n "poweredBy" . | safeHTML }}
       {{ if $.GitInfo }}&nbsp;&bull;&nbsp;[<a href="{{ .Site.Params.commit }}{{ .GitInfo.Hash }}">{{ substr .GitInfo.Hash 0 8 }}</a>]{{ end }}
     </p>

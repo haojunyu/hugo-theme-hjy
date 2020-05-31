@@ -20,30 +20,19 @@
         <p>{{ printf "site.params: %#v\n" $.Site.Params}}</p>
         <p>{{ printf "params: %#v\n" $.Params }}</p>
         <p>index-scratch: {{ printf "%#v" $.Scratch }}</p>
+        <p>debugs: {{ printf "%#v" $.Site.RegularPages}}</p>
         {{end}}
 
         <div class="posts-list">
-          {{ $pag := .Paginate (where site.RegularPages "Type" "in" site.Params.mainSections) 4}}
-          {{ range $pag.Pages }}
-            <p>{{.Type}}  {{.Section}}</p>
+          {{ $paginator := .Paginate (where site.RegularPages "Type" "in" site.Params.mainSections) 4}}
+          {{ range $paginator.Pages }}
             {{ partial "post_preview" . }}
           {{ end }}
         </div>
 
-        {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
-          <ul class="pager main-pager">
-            {{ if .Paginator.HasPrev }}
-              <li class="previous">
-                <a href="{{ .Permalink }}page/{{ .Paginator.Prev.PageNumber }}/">&larr; {{ i18n "newerPosts" }}</a>
-              </li>
-            {{ end }}
-            {{ if .Paginator.HasNext }}
-              <li class="next">
-                <a href="{{ .Permalink }}page/{{ .Paginator.Next.PageNumber }}/">{{ i18n "olderPosts" }} &rarr;</a>
-              </li>
-            {{ end }}
-          </ul>
-        {{ end }}
+        
+        {{ partial "pagination" . }}
+
       </main>
     </div>
   </div>
