@@ -1,33 +1,12 @@
 {{ define "main" }}
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      {{with .Site.Params.debug }}
-      <p>single-scratch: {{ printf "%#v" $.Scratch }}</p>
-      {{end}}
-
-      <article role="main" class="blog-post">
-          <p>{{.Type}}  {{.Section}}</p>
-        {{ .Content }}
-        
-
-        {{ if .Params.tags }}
-          <div class="blog-tags">
-            {{ range .Params.tags }}
-              <a href="{{ $.Site.LanguagePrefix | absURL }}/tags/{{ . | urlize }}/">{{ . }}</a>&nbsp;
-            {{ end }}
-          </div>
-        {{ end }}
-
-        {{ if $.Param "socialShare" }}
-            <hr/>
-            <section id="social-share">
-              <div class="list-inline footer-links">
-                {{ partial "share-links" . }}
-              </div>
-            </section>
-        {{ end }}
-
+  <div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+      <!-- 左边栏 热门或相关文章 -->
+      <div class="col-12 col-md-3 col-xl-2 sidebar">
+        章节目录toc
+      </div>
+      <div class="d-none d-xl-block col-xl-2 toc">
+        相关文章
         {{ if .Site.Params.showRelatedPosts }}
           {{ range first 1 (where (where .Site.Pages ".Params.tags" "intersect" .Params.tags) "Permalink" "!=" .Permalink) }}
             {{ $.Scratch.Set "has_related" true }}
@@ -44,28 +23,68 @@
 
           {{ end }}
         {{ end }}
+      </div>
+      <main  role="main"  class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 content">
+        <header class="post-header">
+          <h2 class="post-title">{{ .Title }}</h2>
+          
+          <div class="post-preview-footer">
+            {{ if .Params.categories }}
+            <div class="d-inline-block">
+                {{ range .Params.categories }}
+                <a href="{{ "categories" | relLangURL }}/{{ . | urlize }}/">
+                    <span class="cate-label">{{ . }}</span>
+                </a>&nbsp;
+                {{ end }}
+            </div>
+            &nbsp;|&nbsp;
+            {{ end }}
+            {{ if .Params.tags }}
+            <i class="fas fa-tags"></i>&nbsp;
+            <div class="d-inline-block">
+                {{ range .Params.tags }}
+                <a href="{{ "tags" | relLangURL }}/{{ . | urlize }}/">
+                    <span class="tag-label">{{ . }}</span>
+                </a>&nbsp;
+                {{ end }}
+            </div>
+            {{ end }}
+          </div>
+          <div class="post-meta">
+            {{ partial "post_meta.html" . }}
+        </div>
+        </header>
+
+
+        <article role="main" class="blog-post">
+        {{ .Content }}
+        
       </article>
 
       {{ if ne .Type "page" }}
-        <ul class="pager blog-pager">
-          {{ if .PrevInSection }}
-            <li class="previous">
-              <a href="{{ .PrevInSection.Permalink }}" data-toggle="tooltip" data-placement="top" title="{{ .PrevInSection.Title }}">&larr; {{ i18n "previousPost" }}</a>
-            </li>
-          {{ end }}
-          {{ if .NextInSection }}
-            <li class="next">
-              <a href="{{ .NextInSection.Permalink }}" data-toggle="tooltip" data-placement="top" title="{{ .NextInSection.Title }}">{{ i18n "nextPost" }} &rarr;</a>
-            </li>
-          {{ end }}
-        </ul>
-      {{ end }}
-
+      <ul class="pager blog-pager">
+        {{ if .PrevInSection }}
+          <li class="previous">
+            <a href="{{ .PrevInSection.Permalink }}" data-toggle="tooltip" data-placement="top" title="{{ .PrevInSection.Title }}">&larr; {{ i18n "previousPost" }}</a>
+          </li>
+        {{ end }}
+        {{ if .NextInSection }}
+          <li class="next">
+            <a href="{{ .NextInSection.Permalink }}" data-toggle="tooltip" data-placement="top" title="{{ .NextInSection.Title }}">{{ i18n "nextPost" }} &rarr;</a>
+          </li>
+        {{ end }}
+      </ul>
+    {{ end }}
 
       {{ if (.Params.comments) | or (and (or (not (isset .Params "comments")) (eq .Params.comments nil)) (and .Site.Params.comments (ne .Type "page"))) }}
         {{ partial "comments.html" . }}
       {{end}}
+
+      </main>
     </div>
   </div>
-</div>
 {{ end }}
+
+
+
+

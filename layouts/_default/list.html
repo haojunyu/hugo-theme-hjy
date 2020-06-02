@@ -1,40 +1,36 @@
 {{ define "main" }}
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+  <div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+      <!-- 左边栏 热门或相关文章 -->
+      <div class="col-12 col-md-3 col-xl-2 sidebar">
+        热门 或 相关文章
+      </div>
+      <div class="d-none d-xl-block col-xl-2 toc">
+        热门评论 或 章节目录toc
+      </div>
+      <main  role="main"  class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 content">
         {{ with .Content }}
           <div class="well">
             {{.}}
           </div>
         {{ end }}
-        {{with .Site.Params.debug }}
-        <p>list-scratch: {{ printf "%#v" $.Scratch }}</p>
-        {{end}}
 
+        
         
         <div class="posts-list">
           {{ range .Paginator.Pages }}
-          <p>{{.Type}}  {{.Section}}</p>
-            {{ partial "post_preview.html" .}}
+            {{ partial "post_preview" . }}
           {{ end }}
         </div>
-        {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
-          <ul class="pager main-pager">
-            {{ if .Paginator.HasPrev }}
-              <li class="previous">
-                <a href="{{ .Permalink }}page/{{ .Paginator.Prev.PageNumber }}/">&larr; {{ i18n "newerPosts" }}</a>
-              </li>
-            {{ end }}
-            {{ if .Paginator.HasNext }}
-              <li class="next">
-                <a href="{{ .Permalink }}page/{{ .Paginator.Next.PageNumber }}/">{{ i18n "olderPosts" }} &rarr;</a>
-              </li>
-            {{ end }}
-          </ul>
-        {{ end }}
-      </div>
+
+        
+        {{ partial "pagination" . }}
+
+      </main>
     </div>
   </div>
 {{ end }}
+
+
 
 

@@ -147,3 +147,14 @@ footer a:hover{
   }
 }
 
+
+/* --- single.html --- */
+.post-header {
+  margin: 30px 0 20px;
+}
+
+.post-header h2 {
+  font-size: 2em;
+  line-height: 1.4;
+  font-weight: 600;
+}

@@ -14,16 +14,9 @@
 {{ $title := $.Scratch.Get "title" }}
 {{ $subtitle := $.Scratch.Get "subtitle" }}
 
-{{ if $bigimg }}
+{{ if and .IsHome $bigimg }}
   <div class="contianer">
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-      <!--
-      <ol class="carousel-indicators">
-        {{range $i, $img := $bigimg}}
-        <li data-target="#carouselExampleCaptions" data-slide-to="{{$i}}" {{if eq $i 0}}class="active" {{end}}></li>
-        {{end}}
-      </ol>
-      -->
       <div class="carousel-inner">
         {{range $i, $img := $bigimg}}
         <div class="carousel-item {{if eq $i 0}} active {{end}}">
