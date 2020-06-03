@@ -3,7 +3,7 @@ hugo主题
 
 
 基于bootstrap4.3.1
-
+使用katex（mathjax渲染比较慢）作数学公式渲染
 
 ## layouts
 * _default
@@ -43,3 +43,9 @@ todo:
 * comments目前使用的是utterances(借助github)，但是有自建的服务remark和commentto，以此来打开静态页面站点统计信息。 
 * 各个文章的数据统计，post_meta.html中设置
 * 文章页的图文或视频显示
+
+
+## 参考文献
+1. [katex][official_katex]
+
+[official_katex]: https://katex.org/
