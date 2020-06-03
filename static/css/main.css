@@ -158,3 +158,37 @@ footer a:hover{
   line-height: 1.4;
   font-weight: 600;
 }
+
+.post-pager {
+  padding-top: 2rem;
+  margin: 10px 0 0;
+  border-top: 1px solid #e6e6e6;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .post-pager  {
+    margin-top: 40px;
+  }
+}
+
+
+.post-copyright{
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px dashed #e6e6e6;
+}
+.post-copyright .copyright-item{
+  margin: 5px 0;
+}
+
+.post-toc{
+  margin-top: 4rem;
+}
+
+.post-toc .post-toc-title{
+  margin: 10px 0 ;
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+}

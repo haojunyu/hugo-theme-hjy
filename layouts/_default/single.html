@@ -3,7 +3,7 @@
     <div class="row flex-xl-nowrap">
       <!-- 左边栏 热门或相关文章 -->
       <div class="col-12 col-md-3 col-xl-2 sidebar">
-        章节目录toc
+        {{ partial "toc.html" .}}
       </div>
       <div class="d-none d-xl-block col-xl-2 toc">
         相关文章
@@ -56,24 +56,26 @@
         </header>
 
 
-        <article role="main" class="blog-post">
+        <article role="main" class="post-content">
         {{ .Content }}
         
       </article>
 
+      <div class="post-copyright">
+        <p class="copyright-item">
+          文章作者： {{.Params.author | default .Site.Author.name}}
+        </p>
+      </div>
+
       {{ if ne .Type "page" }}
-      <ul class="pager blog-pager">
+      <div class="post-pager clearfix">
         {{ if .PrevInSection }}
-          <li class="previous">
-            <a href="{{ .PrevInSection.Permalink }}" data-toggle="tooltip" data-placement="top" title="{{ .PrevInSection.Title }}">&larr; {{ i18n "previousPost" }}</a>
-          </li>
+            <a class="btn btn-outline-primary float-left" href="{{ .PrevInSection.Permalink }}" data-toggle="tooltip" data-placement="top" title="{{ .PrevInSection.Title }}">&lt; {{ i18n "previousPost" }}</a>
         {{ end }}
         {{ if .NextInSection }}
-          <li class="next">
-            <a href="{{ .NextInSection.Permalink }}" data-toggle="tooltip" data-placement="top" title="{{ .NextInSection.Title }}">{{ i18n "nextPost" }} &rarr;</a>
-          </li>
+            <a class="btn btn-outline-primary float-right" href="{{ .NextInSection.Permalink }}" data-toggle="tooltip" data-placement="top" title="{{ .NextInSection.Title }}">{{ i18n "nextPost" }} &gt;</a>
         {{ end }}
-      </ul>
+        </div>
     {{ end }}
 
       {{ if (.Params.comments) | or (and (or (not (isset .Params "comments")) (eq .Params.comments nil)) (and .Site.Params.comments (ne .Type "page"))) }}
