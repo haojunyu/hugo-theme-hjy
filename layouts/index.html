@@ -24,7 +24,7 @@
         {{end}}
 
         <div class="posts-list">
-          {{ $paginator := .Paginate (where site.RegularPages "Type" "in" site.Params.mainSections) 4}}
+          {{ $paginator := .Paginate (where site.RegularPages "Type" "in" site.Params.mainSections) }}
           {{ range $paginator.Pages }}
             {{ partial "post_preview" . }}
           {{ end }}

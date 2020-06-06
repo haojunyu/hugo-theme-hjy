@@ -1,0 +1,62 @@
+/* articles
+======================================*/
+
+.label-section {
+    margin: 2rem 0;
+}
+  
+.label-section h2,
+.articles-section h2 {
+  font-size: 1.8em;
+}
+
+.label-section button{
+  border-radius: 2px;
+  padding: 1px 6px;
+  margin: 0 7px 7px 0;
+}
+
+.articles-section .search {
+  margin-left: 20px;
+}
+
+
+.articles-section h3 {
+  display: inline-block;
+  font-size: 1.5em;
+  margin: 0.5em 0;
+  border-bottom: 1px solid #ccc;
+  padding: 0 50px 0 5px;
+  font-weight: 500;
+}
+  
+.articles {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.article{
+  padding: 3px 10px;
+}
+
+
+.articles .article-title {
+  text-decoration: none;
+}
+
+.articles .article-title:hover {
+  text-decoration: none;
+  color: #1abc9c;
+  transition: all 0.2s;
+}
+
+.articles .article-date {
+  color: #818181;
+  padding: 0 10px 0 10px;
+  font-size: 1em;
+}
+
+
+
+

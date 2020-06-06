@@ -1,5 +1,5 @@
 {{- if eq .Kind "taxonomyTerm" }}
-  <!-- 分类项 -->
+  <!-- 分类项 /tags /categories -->
   {{- range $key, $value := .Data.Terms.ByCount }}
     {{- $.Scratch.Add "most_used" (slice $value.Name) }}
   {{- end }}
@@ -14,7 +14,7 @@
   {{- $title := printf "Overview of all pages with %s, ordered by %s" .Data.Plural .Data.Singular }}
   {{- $.Scratch.Set "Title" $title }}
 {{- else if eq .Kind "taxonomy" }}
-  <!-- 分类 -->
+  <!-- 分类 /tags/xxx /categories/xxx-->
   {{- $description := printf "Overview of all pages with the %s #%s, such as: %s" .Data.Singular $.Title ( index .Pages 0).Title | truncate 160 }}
   {{- $.Scratch.Set "Description" $description }}
 

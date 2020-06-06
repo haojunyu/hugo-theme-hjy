@@ -1,0 +1,55 @@
+
+{{ define "main" }}
+<link rel="stylesheet" href="{{ "css/archives.css" | absURL }}" />
+<script type="text/javascript">
+    // prepare data from hugo
+    var $J = {
+        baseUrl: '{{ "post" | absURL }}?label=',
+        labels: [
+            {
+                name: "显示全部",
+                value: {{len .Data.Pages}},
+                type: "all"
+            },
+            {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
+            {{ range $key, $value := $taxonomy }}
+            {
+                name: "{{$key}}",
+                value: {{len $value.Pages}},
+                type: "{{$taxonomy_term}}",
+            },  {{end}} {{end}}
+        ],
+        posts: [
+            {{ range  where site.RegularPages "Type" "in" site.Params.mainSections }}
+            {
+                title: "{{.Params.title}}",
+                date: '{{ .Date.Format "2006-01-02"}}',
+                link : "{{ .Permalink }}",
+                labels : [ 
+                    {{range .Params.categories}}{{lower .}},{{end}}
+                    {{range .Params.tags}}{{lower .}},{{end}}
+                ],
+            },
+            {{ end }}
+        ]
+    };
+</script>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10" id="main">
+            </div>
+        </div>
+    </div>
+
+    <!-- React JSX -->
+    {{- if .Site.Params.selfHosted -}}
+    <script src="{{ "js/react.js" | absURL }}"></script>
+    <script src="{{ "js/JSXTransformer.js" | absURL }}"></script>
+    <script type="text/jsx" src="{{ "js/archives.js" | absURL }}"></script>
+    {{- else -}}
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    {{- end }}
+    
+{{end}}
+

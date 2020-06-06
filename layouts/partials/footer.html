@@ -1,8 +1,8 @@
 {{ if eq .Type "page" }}
 {{ partial "page_meta.html" . }}
-<p>footer: {{ .Type }}  sdfs{{ .Section }}</p>
 {{ end }}
 <footer>
+  <p>kind:{{.Kind}}, type: {{ .Type }}  section: {{ .Section }}</p>
 <div class="container">
 <div class="row justify-content-center">
   
