@@ -7,6 +7,7 @@
       </div>
       <div class="d-none d-xl-block col-xl-2 toc">
         相关文章
+
         {{ if .Site.Params.showRelatedPosts }}
           {{ range first 1 (where (where .Site.Pages ".Params.tags" "intersect" .Params.tags) "Permalink" "!=" .Permalink) }}
             {{ $.Scratch.Set "has_related" true }}

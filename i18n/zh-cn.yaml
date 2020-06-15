@@ -29,6 +29,10 @@
   translation: "分钟"
 - id: words
   translation: "个字"
+- id: category
+  translation: "类别"
+- id: tag
+  translation: "标签"
 
 
 # 404 page

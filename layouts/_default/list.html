@@ -2,11 +2,15 @@
   <div class="container-fluid">
     <div class="row flex-xl-nowrap">
       <!-- 左边栏 热门或相关文章 -->
-      <div class="col-12 col-md-3 col-xl-2 sidebar">
+      <div class="col-12 col-md-3 col-xl-2 {{with .Site.Params.debug }}sidebar{{end}}">
+        {{with .Site.Params.debug }}
         热门 或 相关文章
+        {{end}}
       </div>
       <div class="d-none d-xl-block col-xl-2 toc">
+        {{with .Site.Params.debug }}
         热门评论 或 章节目录toc
+        {{end}}
       </div>
       <main  role="main"  class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 content">
         {{ with .Content }}

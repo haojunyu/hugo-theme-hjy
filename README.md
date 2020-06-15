@@ -10,7 +10,8 @@ hugo主题
   * baseof.html 框架
   * list.hmtl 列表页
   * single.hmtl 详情页
-  * terms.html 类别页
+  * terms.html 类别/标签列表页
+  * taxonmony.html 类别/标签包含的文章列表页
 * partials
   * head.html 通用样式设置
   * head_custom.html 个性样式设置

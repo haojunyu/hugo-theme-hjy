@@ -1,21 +1,140 @@
-# theme.toml template for a Hugo theme
-# See https://github.com/gohugoio/hugoThemes#themetoml for an example
+baseURL = "http://blog.haojunyu.com"
+#languageCode = "zh-CN"
+defaultContentLanguage = "zh-cn"
+title = "禹过留声"
+theme = "hugo-theme-hjy"
+#theme = "beautifulhugo"
+Paginate = 5                                  # 列表页显示个数
 
-name = "禹过留声"
-license = "MIT"
-licenselink = "https://github.com/haojunyu/hugo-theme-hjy/blob/master/LICENSE"
-description = "做一个合格的coder"
-homepage = "https://blog.haojunyu.com"
-tags = []
-features = []
-min_version = "0.41.0"
 
-[author]
-  name = "haojunyu"
-  homepage = "https://blog.haojunyu.com"
+metaDataFormat = "yaml"
+pygmentsStyle = "trac"
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+#pygmentsUseClassic = true
+#pygmentOptions = "linenos=inline"
+#disqusShortname = "XXX"
+#googleAnalytics = "XXX"
 
-# If porting an existing theme
-[original]
-  name = ""
-  homepage = ""
-  repo = ""
+[Params]
+  # 站点信息（可选，不需要的可以直接注释掉）
+  logoTitle = "禹过留声"                      # 默认值: 上面设置的title值
+  #logo = "img/favicon.ico"                    # 居中图标
+  keywords = ["Hugo", "theme","even"]
+  description = "专注coding一百年"
+  mainSections = ["post","coder"]
+  #favicon = "img/favicon.ico"                # todo
+  selfHosted = true                           # 默认使用本地样式表和脚本
+  debug = false
+  since = 2016                                # 建站启始
+  
+
+  # 文章基本信息
+  readingTime = true
+  dateFormat = "January 2, 2006"
+  wordCount = true
+  #summaryLength = 80                          # summary 默认截取长度
+
+  # 评论系统
+  comments = true
+  socialShare = true
+
+
+
+
+
+
+#  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
+  subtitle = "Build a beautiful and simple website in minutes"
+  
+  
+  
+  
+  commit = false
+  rss = true
+  
+  
+  
+  useHLJS = true
+  
+  delayDisqus = true
+  showRelatedPosts = true
+#  hideAuthor = true
+  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
+
+[[Params.bigimg]]
+  src = "img/triangle.jpg"
+  desc = "Triangle"
+[[Params.bigimg]]
+  src = "img/sphere.jpg"
+  desc = "Sphere"
+  # position: see values of CSS background-position.
+  position = "center top"
+[[Params.bigimg]]
+  src = "img/hexagon.jpg"
+  desc = "Hexagon"
+
+[Author]                                        # 站主信息
+  name = "hjy"
+  website = "https://blog.haojunyu.com"
+  email = "haojunyu2012@gmail.com"
+  github = "haojunyu"
+  gitlab = "haojunyu"
+  zhihu = "haojunyu"
+  pocket = "haojunyu"
+  #bilibili = "haojunyu"
+ 
+
+[[menu.main]]                                 # 配置目录
+  name = "主页"
+  weight = 10
+  identifier = "home"
+  url = "/"
+[[menu.main]]
+  name = "码力"
+  weight = 15
+  identifier = "coder"
+  url = "/coder/"
+[[menu.main]]
+  name = "归档"
+  weight = 20
+  identifier = "archives"
+  url = "/post/"
+[[menu.main]]
+  name = "项目"
+  weight = 50
+  identifier = "projects"
+  url = "/projects/"
+[[menu.main]]
+    parent = "projects"
+    name = "博客主题"
+    url = "/projects/hugo-theme-hjy"
+    weight = 1
+[[menu.main]]
+    parent = "projects"
+    name = "运维开发"
+    url = "   "
+    weight = 2
+[[menu.main]]
+    parent = "projects"
+    name = "Golang图谱"
+    url = "/projects/go-kg"
+    weight = 3
+[[menu.main]]
+    parent = "projects"
+    name = "大数据平台容器化"
+    url = "/projects/bigdata-dockerize"
+    weight = 4
+[[menu.main]]
+    name = "关于我"
+    url = "/page/about"
+    weight = 60
+
+
+[Params.utterances]
+  enable = true
+  repo = "haojunyu/comments" 
+  issueTerm = "pathname"
+  theme = "github-light"
+
