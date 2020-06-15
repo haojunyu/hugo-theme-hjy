@@ -38,6 +38,8 @@ hugo主题
   * 完成nav.html
 * 20200607
   * 完成归档页面post/list.html(react jsx技术)
+* 20200615
+  * 完成归档页面post/list.html，单纯的使用jquery技术
 
 
 todo:
@@ -45,7 +47,7 @@ todo:
 * comments目前使用的是utterances(借助github)，但是有自建的服务remark和commentto，以此来打开静态页面站点统计信息。 
 * 各个文章的数据统计，post_meta.html中设置
 * 文章页的图文或视频显示
-* post/list.html可以使用vue jsx实现
+
 
 
 ## 参考文献

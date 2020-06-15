@@ -1,5 +1,5 @@
 {{ define "main" }}
-<link rel="stylesheet" href="{{ "css/archives.css" | absURL }}" />
+<link rel="stylesheet" href="{{ "css/post.css" | absURL }}" />
 
 {{ $.Scratch.Add "labels" (slice (dict "name" "显示全部" "cnt" (len .Data.Pages) "type" "all" )) }}
 {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
@@ -23,7 +23,7 @@
                     {{$style := "primary"}}
                     {{if eq .type "categories"}}{{$style = "success"}}{{end}}
                     {{if eq .type "tags" }}{{$style = "info"}}{{end}}
-                    <button type="button"  class='btn btn-{{if ne .type "all"}}outline-{{end}}{{$style}}' data-type="{{$style}}">
+                    <button type="button"  class='btn btn-{{if ne .type "all"}}outline-{{end}}{{$style}}' data-type="{{$style}}" data-name="{{.name}}">
                         {{.name}} <sup><span class="badge badge-pill badge-light">{{if and (gt .cnt 1) (lt .cnt 5000)}}{{.cnt}}{{end}}</span></sup>
                     </button>
                     {{end}}
@@ -37,7 +37,7 @@
                         <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-search"></i></div>
                         </div>
-                        <input type="text" class="form-control " onChange={this.searchHandler}  id="inlineFormInputGroupUsername2" placeholder="搜索标题中的关键词"/>
+                        <input type="text" class="form-control " onChange={this.searchHandler}  id="textsearch" placeholder="搜索标题中的关键词"/>
                     </div>
                 </form>
                 
@@ -48,12 +48,12 @@
                     {{ $thisYear := $element.Date.Format "2006" }}
                     {{ $lastElement := $index | add -1 | index $pages }}
                     {{ if or (eq $index 0) ( ne ($lastElement.Date.Format "2006") $thisYear ) }}
-                    <li><h3>{{$thisYear}}年</h3></li>
+                    <li class="year" data-year='{{$thisYear}}'><h3>{{$thisYear}}年</h3></li>
                     {{ end}}
                     {{ $tags := slice ""}}
                     {{range .Params.categories}}{{$tags = $tags | append (lower .)}}{{end}}
                     {{range .Params.tags}}{{$tags = $tags | append (lower .)}}{{end}}
-                    <li class="article" data-labels='{{delimit $tags ";,"}}'>
+                    <li class="article" data-labels='{{delimit $tags ";,"}}' data-title='{{.Params.title}}' data-year='{{$thisYear}}'>
                         <span class="article-date">{{ .Date.Format "01-02"}}</span>
                         <a class="article-title" href="{{ .Permalink }}">{{.Params.title}}</a>
                     </li>
