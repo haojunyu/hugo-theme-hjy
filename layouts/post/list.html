@@ -1,55 +1,74 @@
-
 {{ define "main" }}
 <link rel="stylesheet" href="{{ "css/archives.css" | absURL }}" />
-<script type="text/javascript">
-    // prepare data from hugo
-    var $J = {
-        baseUrl: '{{ "post" | absURL }}?label=',
-        labels: [
-            {
-                name: "显示全部",
-                value: {{len .Data.Pages}},
-                type: "all"
-            },
-            {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
-            {{ range $key, $value := $taxonomy }}
-            {
-                name: "{{$key}}",
-                value: {{len $value.Pages}},
-                type: "{{$taxonomy_term}}",
-            },  {{end}} {{end}}
-        ],
-        posts: [
-            {{ range  where site.RegularPages "Type" "in" site.Params.mainSections }}
-            {
-                title: "{{.Params.title}}",
-                date: '{{ .Date.Format "2006-01-02"}}',
-                link : "{{ .Permalink }}",
-                labels : [ 
-                    {{range .Params.categories}}{{lower .}},{{end}}
-                    {{range .Params.tags}}{{lower .}},{{end}}
-                ],
-            },
-            {{ end }}
-        ]
-    };
-</script>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10" id="main">
-            </div>
-        </div>
-    </div>
 
-    <!-- React JSX -->
-    {{- if .Site.Params.selfHosted -}}
-    <script src="{{ "js/react.js" | absURL }}"></script>
-    <script src="{{ "js/JSXTransformer.js" | absURL }}"></script>
-    <script type="text/jsx" src="{{ "js/archives.js" | absURL }}"></script>
-    {{- else -}}
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    {{- end }}
+{{ $.Scratch.Add "labels" (slice (dict "name" "显示全部" "cnt" (len .Data.Pages) "type" "all" )) }}
+{{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
+    {{ range $key, $value := $taxonomy }}
+    {{ $.Scratch.Add "labels" (slice (dict "name" $key "cnt" (len $value.Pages) "type" $taxonomy_term )) }}
+    {{end}} 
+{{end}}
+{{ $labels := $.Scratch.Get "labels" }}
+
+
+
     
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10" id="main">
+            <div class="label-section">
+                <h2>标签列表</h2>
+                <hr/>
+                <div id="tags">
+                    {{ range  sort $labels "cnt" "desc" }}
+                    {{$style := "primary"}}
+                    {{if eq .type "categories"}}{{$style = "success"}}{{end}}
+                    {{if eq .type "tags" }}{{$style = "info"}}{{end}}
+                    <button type="button"  class='btn btn-{{if ne .type "all"}}outline-{{end}}{{$style}}' data-type="{{$style}}">
+                        {{.name}} <sup><span class="badge badge-pill badge-light">{{if and (gt .cnt 1) (lt .cnt 5000)}}{{.cnt}}{{end}}</span></sup>
+                    </button>
+                    {{end}}
+                </div>
+            </div>
+
+            <section class="articles-section">
+                <form class="form-inline">
+                    <h2>文章检索</h2>
+                    <div class="input-group mb-2 mr-sm-2 search">
+                        <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-search"></i></div>
+                        </div>
+                        <input type="text" class="form-control " onChange={this.searchHandler}  id="inlineFormInputGroupUsername2" placeholder="搜索标题中的关键词"/>
+                    </div>
+                </form>
+                
+                <hr/>
+                <ul class="articles">
+                    {{$pages :=  where site.RegularPages "Type" "in" site.Params.mainSections }}
+                    {{ range $index,$element := $pages }}
+                    {{ $thisYear := $element.Date.Format "2006" }}
+                    {{ $lastElement := $index | add -1 | index $pages }}
+                    {{ if or (eq $index 0) ( ne ($lastElement.Date.Format "2006") $thisYear ) }}
+                    <li><h3>{{$thisYear}}年</h3></li>
+                    {{ end}}
+                    {{ $tags := slice ""}}
+                    {{range .Params.categories}}{{$tags = $tags | append (lower .)}}{{end}}
+                    {{range .Params.tags}}{{$tags = $tags | append (lower .)}}{{end}}
+                    <li class="article" data-labels='{{delimit $tags ";,"}}'>
+                        <span class="article-date">{{ .Date.Format "01-02"}}</span>
+                        <a class="article-title" href="{{ .Permalink }}">{{.Params.title}}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </section>
+        </div>
+
+    </div>
+</div>
+
+<script  type="text/javascript">
+    
+</script>
+
+
 {{end}}
 

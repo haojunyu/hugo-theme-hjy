@@ -90,6 +90,10 @@
 </script>
 <script src="{{ "js/main.js" | absURL }}"></script>
 
+{{if eq .Section "post"}}
+<script src="{{ "js/post.js" | absURL }}"></script>
+{{end}}
+
 {{- if .Site.Params.staticman }}
 <script src="{{ "js/staticman.js" | absURL }}"></script>
 {{- end }}
